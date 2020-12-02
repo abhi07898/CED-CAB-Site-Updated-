@@ -442,10 +442,10 @@ include 'rideclasses.php';
                 dataType : "json",
                 success : function(data) {
                     output = '<table border="1" width="100%" cellspacing="0" cellpadding ="10px">';
-                    output+="<tr align='center' height='40px'><th>RIDE DATE</th><th>PICKUP</th><th>DESTINATION</th><th>DISTANCE</th><th>CAB TYPE</th><th>FARE</th></tr>";
+                    output+="<tr align='center' height='40px'><th>RIDE DATE</th><th>PICKUP</th><th>DESTINATION</th><th>DISTANCE</th><th>CAB TYPE</th><th>FARE</th><th>ACTION</th></tr>";
            
                     for(i=0;i<data.length;i++) {
-                        output+="<tr align='center' height='40px'><td align='center'>"+data[i]['ride_date']+"</td><td>"+data[i]['loc_from']+"</td><td>"+data[i]['loc_to']+"</td><td>"+data[i]['total_distance']+"</td><td>"+data[i]['cab_type']+"</td><td>"+data[i]['total_fare']+"</td></tr> ";                       
+                        output+="<tr align='center' height='40px'><td align='center'>"+data[i]['ride_date']+"</td><td>"+data[i]['loc_from']+"</td><td>"+data[i]['loc_to']+"</td><td>"+data[i]['total_distance']+"</td><td>"+data[i]['cab_type']+"</td><td>"+data[i]['total_fare']+"</td><td><button class='cancel-btn btn-outline-danger p-1' data-cid="+data[i]['ride_id']+">RIDE CANCEL</button></td></tr> ";                       
                     }
                     output+='</table>';
                     $('#pending_table-data').html(output);
@@ -465,17 +465,36 @@ include 'rideclasses.php';
                 dataType : "json",
                 success : function(data) {
                     output = '<table border="1" width="100%" cellspacing="0" cellpadding ="10px">';
-                    output+="<tr align='center' height='40px'><th>RIDE DATE</th><th>PICKUP</th><th>DESTINATION</th><th>DISTANCE</th><th>CAB TYPE</th><th>FARE</th></tr>";
+                    output+="<tr align='center' height='40px'><th>RIDE DATE</th><th>PICKUP</th><th>DESTINATION</th><th>DISTANCE</th><th>CAB TYPE</th><th>FARE</th><th>ACTION</th></tr>";
            
                     for(i=0;i<data.length;i++) {
-                        output+="<tr align='center' height='40px'><td align='center'>"+data[i]['ride_date']+"</td><td>"+data[i]['loc_from']+"</td><td>"+data[i]['loc_to']+"</td><td>"+data[i]['total_distance']+"</td><td>"+data[i]['cab_type']+"</td><td>"+data[i]['total_fare']+"</td></tr> ";                       
+                        output+="<tr align='center' height='40px'><td align='center'>"+data[i]['ride_date']+"</td><td>"+data[i]['loc_from']+"</td><td>"+data[i]['loc_to']+"</td><td>"+data[i]['total_distance']+"</td><td>"+data[i]['cab_type']+"</td><td>"+data[i]['total_fare']+"</td><td><button class='cancel-btn btn-outline-danger p-1' data-cid="+data[i]['ride_id']+">RIDE CANCEL</button></td></tr> ";                       
                     }
                     output+='</table>';
                     $('#pending_table-data').html(output);
                 }
+            });         
             });
+            //cancel pending ride
+            $(document).on('click','.cancel-btn', function(){
+              var id = $(this).data('cid');
+              var action ='cancel_ride';
+              var element = this;
+              $.ajax({
+                url : 'userajaxaction.php',
+                type :'POST',
+                data : {id:id, action:action},
+                success : function(data) {
+                  if(data == 1) {
+                    $(element).closest("tr").fadeOut(); 
+                  } else {
+                    alert(data);
+                  }
+                }
 
+              });
             });
+            //close cancel pending ride
             // Search The Pending Rides
           $('#search').keyup(function(){
             var search_key = $(this).val();
@@ -488,10 +507,10 @@ include 'rideclasses.php';
               data : {action:action,key:search_key,id:id},
               success : function(data) {
                 output = '<table border="1" width="100%" cellspacing="0" cellpadding ="10px">';
-                    output+="<tr align='center' height='40px'><th>RIDE DATE</th><th>PICKUP</th><th>DESTINATION</th><th>DISTANCE</th><th>CAB TYPE</th><th>FARE</th></tr>";
+                    output+="<tr align='center' height='40px'><th>RIDE DATE</th><th>PICKUP</th><th>DESTINATION</th><th>DISTANCE</th><th>CAB TYPE</th><th>FARE</th><th>ACTION</th></tr>";
            
                     for(i=0;i<data.length;i++) {
-                        output+="<tr align='center' height='40px'><td align='center'>"+data[i]['ride_date']+"</td><td>"+data[i]['loc_from']+"</td><td>"+data[i]['loc_to']+"</td><td>"+data[i]['total_distance']+"</td><td>"+data[i]['cab_type']+"</td><td>"+data[i]['total_fare']+"</td></tr> ";                       
+                        output+="<tr align='center' height='40px'><td align='center'>"+data[i]['ride_date']+"</td><td>"+data[i]['loc_from']+"</td><td>"+data[i]['loc_to']+"</td><td>"+data[i]['total_distance']+"</td><td>"+data[i]['cab_type']+"</td><td>"+data[i]['total_fare']+"</td><td><button class='cancel-btn btn-outline-danger p-1' data-cid="+data[i]['ride_id']+">RIDE CANCEL</button></td></tr> ";                       
                     }
                     output+='</table>';
                     $('#pending_table-data').html(output);
@@ -893,7 +912,23 @@ include 'rideclasses.php';
             }
           });
         });   
-       
+       //string val;idation 
+            $("#Name").keypress(function(event) {
+             var character = String.fromCharCode(event.keyCode);
+             return isValid(character);     
+             });
+            function isValid(str) {
+                return !/[~`!@.0123456789#$%\^&*()+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
+            }
+            $("#Contact").keypress(function(event) {
+             var character = String.fromCharCode(event.keyCode);
+             return isContactValid(character);     
+             });
+            function isContactValid(str) {
+                return !/[~`!a-zA-Z@.#$%\^&*()+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
+            }
+            
+       //close string vailii
        });
         //modal print query 
         function Modal_print(exampleModalCenter) {

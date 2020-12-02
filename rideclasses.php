@@ -288,5 +288,16 @@ public function all_ride_search_filter($id,$key) {
     return  "No Records Found";
   }  
 }
+//cancel ride
+public function cancel_ride($id) {
+  $sql = "DELETE FROM ride WHERE `ride_id`='$id'";
+
+  if ($this->data->query($sql) === TRUE) {
+    $output = 1;
+  } else {
+    $output= "Error deleting record: " . $this->data->error;
+  }
+  return $output;
+}
 }
 ?>

@@ -114,7 +114,11 @@ case 'all_ride_search_filter' :
    $output = $obj->all_ride_search_filter($id,$key);
    print_r($output);
 break;
-
+case 'cancel_ride' :
+   $id = $_POST['id'];   
+   $output = $obj->cancel_ride($id);
+   print_r($output);
+break;
 
 }
 ?>

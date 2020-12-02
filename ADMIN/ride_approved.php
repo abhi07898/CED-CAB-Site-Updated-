@@ -30,11 +30,13 @@ if (!isset($_SESSION['admin']))
 <section>
 <nav class="navbar navbar-expand-lg navbar-light bg-light ">
   <a class="navbar-brand " href="#">CED CAB</a>
+  <input type="submit" class="nav-link btn-outline-success ml-4"  value ="TOTAL EARNING" id="earning"/>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav ml-auto" >
+    
       <li class="nav-item active">
         <a class="nav-link" href="admin_home.php">Home <span class="sr-only">(current)</span></a>
       </li>
@@ -63,7 +65,7 @@ if (!isset($_SESSION['admin']))
       </li>
 
     </ul> 
-        <input type="submit" class="nav-link btn-outline-success ml-4"  value ="TOTAL EARNING" id="earning"/>  
+          
   </div>
 </nav>
 </section>  
