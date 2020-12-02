@@ -228,6 +228,11 @@ session_start();
       <td id="header">
         <h1>LIST OF ALL PENDING USERS </h1>
         <div id="search-bar">
+        <Select id = 'pending_user_sort'class='btn btn-outline-warning mt-2 ml-5 text-center text-dark '>
+        <option value="user_name">USER NAME</option>
+        <option value="date_of_signup">DATE</option>
+        <option value="name">NAME</option>
+      </Select>
         </div>
       </td>
     </tr>
@@ -245,6 +250,11 @@ session_start();
       <td id="header">
         <h1>LIST OF ALL APPROVED USERS </h1>
         <div id="search-bar">
+        <Select id = 'approved_user_sort'class='btn btn-outline-warning mt-2 ml-5 text-center text-dark '>
+        <option value="user_name">USER NAME</option>
+        <option value="date_of_signup">DATE</option>
+        <option value="name">NAME</option>
+        </Select>
         </div>
       </td>
     </tr>
@@ -260,7 +270,8 @@ session_start();
   <table id="main" border="0" cellspacing="0">
     <tr>
       <td id="header">
-        <h1>LIST OF ALL APPROVED USERS </h1>
+        <h1 class='mr-5'>LIST OF ALL USERS </h1>
+        <input type="text" id='search_user' placeholder="Filter-username or" class="ml-5 mt-2"> 
         <div id="search-bar">
         <div class="dropdown">
           <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -351,11 +362,6 @@ session_start();
             // alert(data);
           }
         });
-        
-
-
-
-
        $('#pending_user').click(function(e){
          e.preventDefault();
          $('#showdashboard').hide();
@@ -376,11 +382,11 @@ session_start();
          loadPendingUserTable();
          
        });
-       $(document).on("click",'#change_isblock',function(){
+       $(document).on("change",'#change_isblock',function(){
         var id =  $(this).data("eid");
         var value = $(this).val();
         var element = this;
-          var action="update_user_pending";           
+        var action="update_user_pending";           
             $.ajax ({
                 url: 'ajaxaction.php',
                 type : "POST",
@@ -393,6 +399,20 @@ session_start();
                 }
             });
       });
+      //pending user sorting 
+      $('#pending_user_sort').change(function(){
+          var key = $(this).val();
+          var action="pending_user_sort";           
+              $.ajax ({
+                  url: 'ajaxaction.php',
+                  type : "POST",
+                  data : {action:action, key:key},
+                  success : function(data) {
+                      $('#table-data').html(data);
+                  }
+              });
+        });
+      // close pending user sort
       $('#approved_user').click(function(e){
          e.preventDefault();
          $('#showdashboard').hide();
@@ -410,7 +430,22 @@ session_start();
            }
          });
          }
-         loadApprovedUserTable();                
+         loadApprovedUserTable();  
+           
+         //approved user sort
+         $('#approved_user_sort').change(function(){
+          var key = $(this).val();
+          var action="approved_user_sort";           
+              $.ajax ({
+                  url: 'ajaxaction.php',
+                  type : "POST",
+                  data : {action:action, key:key},
+                  success : function(data) {
+                      $('#approved_table-data').html(data);
+                  }
+              });
+        });
+         //closing of user sort 
        });
        $('#all_user').click(function(e){
          e.preventDefault();
@@ -430,7 +465,21 @@ session_start();
          });
          }
          loadAllUserTable();  
-         // Ajax for sorth the table data 
+         //ajax for filtring the data for all user 
+         $('#search_user').keyup(function(){
+           var action = 'search_cab_for_all_user';
+           var key = $(this).val();
+           $.ajax({
+            url:'ajaxaction.php',
+            type : 'POST',
+            data :{key:key, action:action} ,
+            success : function (data) {
+              $('#approved_all_table-data').html(data);
+            }
+           });
+         });
+         //clos filter  the data for all user
+         // Ajax for sort the table data 
          $('#name').click(function(e){
           e.preventDefault();
           $('#showdashboard').hide();

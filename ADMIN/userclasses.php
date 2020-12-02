@@ -123,9 +123,11 @@ class userclasses {
         return $output;
     }
 // function for ride- information table fatching and editing the ride comtent like 1,2,3
-    function load_data_for_ride( $data){
+    function load_data_for_ride( $data, $page){
         $output = "";
-        $sql = "SELECT * FROM ride WHERE `status` = 1" ;
+        $limit_per_page = 6;
+        $offset = ($page-1)*$limit_per_page;
+        $sql = "SELECT * FROM ride WHERE `status` = 1 LIMIT {$offset},{$limit_per_page}" ;
         $result = $data->query($sql);
         if ($result->num_rows > 0) {
             $output.= '<table border="1" width="100%" cellspacing="0" cellpadding ="10px">
@@ -137,6 +139,7 @@ class userclasses {
             <th>DISTANCE</th>
             <th>CURRENT STATUS</th>
             <th>FARE</th>
+            <th>CAB TYPE</th>
             <th>CHANGE STATUS</th>
       
             </tr>';
@@ -144,13 +147,25 @@ class userclasses {
                 $output.= "<tr align='center' height='40px'><td align='center'>{$row['ride_date']}</td><td align='center'>{$row['ride_id']}</td><td>{$row['loc_from']}</td><td>{$row['loc_to']}</td><td>{$row['total_distance']}</td>
                 <td>{$row['status']}</td>
                 <td>{$row['total_fare']}</td>
+                <td>{$row['cab_type']}</td>
                 <td><select name='change_status' id='change_status' data-eid='{$row["ride_id"]}'>
+                <option value='1'>PENDING</option>
                 <option value='2'>APPROVE - 2</option>
                 <option value='3'>CANCEL - 3</option>          
                 </select></td>
                 </tr> ";
             }
             $output.= '</table>';
+            $sql_total = "SELECT * FROM ride WHERE `status` = 1";
+            $records = mysqli_query($data,$sql_total);
+            $total_records = mysqli_num_rows($records);
+            $total_pages = ceil($total_records/$limit_per_page);
+            $output.='<div id="pagination" class="pagination mt-5 ml-1">';           
+            for($i=1;$i<=$total_pages;$i++) {
+                $output.="<li class='page-item'><a class='page-link bg-dark ' id='{$i}' href=''>{$i}</a></li>";
+            }
+            $output.='</div>';
+
             return $output;
         } else {
             echo "Records not found";
@@ -165,9 +180,11 @@ class userclasses {
         }
         return $output;
     }
-    function load_data_for_approved_ride( $data) {
+    function load_data_for_approved_ride( $data,$page) {
+        $limit_per_page  =6;
+        $offset = ($page-1) * $limit_per_page;
         $output = "";
-        $sql = "SELECT * FROM ride WHERE `status` = 2" ;
+        $sql = "SELECT * FROM ride WHERE `status` = 2 LIMIT {$offset},{$limit_per_page}" ;
         $result = $data->query($sql);
         if ($result->num_rows > 0) {
             $output.= '<table border="1" width="100%" cellspacing="0" cellpadding ="10px">
@@ -180,6 +197,7 @@ class userclasses {
             <th>DISTANCE</th>
             <th>LUGGAGE</th>
             <th>TOTAL-FARE</th>
+            <th>CAB TYPE</th>
             <th>DELETE</th>
             
       
@@ -194,10 +212,22 @@ class userclasses {
                 <td>{$row['total_distance']}</td>
                 <td>{$row['luggage']}</td>
                 <td>{$row['total_fare']}</td>
+                <td>{$row['cab_type']}</td>
                 <td><button Class='delete-btn' data-id='{$row["ride_id"]}'>DELETE</button></td>
                 </tr> ";
             }
             $output.= '</table>';
+            //pagintaion 
+            $sql_total = "SELECT * FROM ride WHERE `status` = 2";
+            $records = mysqli_query($data,$sql_total);
+            $total_records = mysqli_num_rows($records);
+            $total_pages = ceil($total_records/$limit_per_page);
+            $output.='<div id="pagination" class="pagination mt-5 ml-1">';           
+            for($i=1;$i<=$total_pages;$i++) {
+                $output.="<li class='page-item'><a class='page-link bg-dark ' id='{$i}' href=''>{$i}</a></li>";
+            }
+            $output.='</div>';
+            //close pagination
             return $output;
         } else {
             echo "Records not found";
@@ -215,9 +245,11 @@ class userclasses {
 
 
 
-    function load_data_for_cancel_ride($data) {
+    function load_data_for_cancel_ride($data,$page) {
         $output = "";
-        $sql = "SELECT * FROM ride WHERE `status` = 3" ;
+        $limit_per_page = 6;
+        $offset = ($page-1) * $limit_per_page;
+        $sql = "SELECT * FROM ride WHERE `status` = 3 LIMIT {$offset},{$limit_per_page}" ;
         $result = $data->query($sql);
         if ($result->num_rows > 0) {
             $output.= '<table border="1" width="100%" cellspacing="0" cellpadding ="10px">
@@ -230,6 +262,7 @@ class userclasses {
             <th>DISTANCE</th>
             <th>LUGGAGE</th>
             <th>TOTAL-FARE</th>
+            <th>CAB TYPE</th>
             <th>DELETE</th>
             
       
@@ -244,19 +277,33 @@ class userclasses {
                 <td>{$row['total_distance']}</td>
                 <td>{$row['luggage']}</td>
                 <td>{$row['total_fare']}</td>
+                <td>{$row['cab_type']}</td>
                 <td><button Class='delete-btn' data-id='{$row["ride_id"]}'>DELETE</button></td>
                 </tr> ";
             }
             $output.= '</table>';
+            // the whole concpet of pagination are here
+            $sql_total = "SELECT * FROM ride WHERE `status` = 3";
+            $records = $data->query($sql_total);
+            $total_records = $records->num_rows;
+            $total_pages = ceil($total_records/$limit_per_page);
+            $output.='<div id="pagination" class="pagination mt-5 ml-1">';           
+            for($i=1;$i<=$total_pages;$i++) {
+                $output.="<li class='page-item'><a class='page-link bg-dark ' id='{$i}' href=''>{$i}</a></li>";
+            }
+            $output.='</div>';
+
             return $output;
         } else {
             echo "Records not found";
         }
     }
    
-    function  load_data_for_whole_ride($data) {
+    function  load_data_for_whole_ride($data,$page) {
         $output = "";
-        $sql = "SELECT * FROM ride";
+        $limit_per_page = 6;
+        $offset = ($page-1) * $limit_per_page;
+        $sql = "SELECT * FROM ride LIMIT {$offset},{$limit_per_page}" ;
         $result = $data->query($sql);
         if ($result->num_rows > 0) {
             $output.= '<table border="1" width="100%" cellspacing="0" cellpadding ="10px">
@@ -270,6 +317,7 @@ class userclasses {
             <th>LUGGAGE</th>
             <th>STATUS</th>
             <th>TOTAL-FARE</th>
+            <th>CAB TYPE</th>
             <th>DELETE</th>
             
       
@@ -285,10 +333,22 @@ class userclasses {
                 <td>{$row['luggage']}</td>
                 <td>{$row['status']}</td>
                 <td>{$row['total_fare']}</td>
+                <td>{$row['cab_type']}</td>
                 <td><button Class='delete-btn' data-id='{$row["ride_id"]}'>DELETE</button></td>
                 </tr> ";
             }
             $output.= '</table>';
+            //pagintaio portin 
+            $sql_total = "SELECT * FROM ride";
+            $records = $data->query($sql_total);
+            $total_records = $records->num_rows;
+            $total_pages = ceil($total_records/$limit_per_page);
+            $output.='<div id="pagination" class="pagination mt-5 ml-1">';           
+            for($i=1;$i<=$total_pages;$i++) {
+                $output.="<li class='page-item'><a class='page-link bg-dark ' id='{$i}' href=''>{$i}</a></li>";
+            }
+            $output.='</div>';
+            //close pagination portion
             return $output;
         } else {
             echo "Records not found";
@@ -330,6 +390,7 @@ class userclasses {
                 $output.= "<tr align='center' height='40px'><td align='center'>{$row['userid']}</td><td>{$row['user_name']}</td><td>{$row['name']}</td><td>{$row['date_of_signup']}</td>
                 <td>{$row['mobile']}</td>
                 <td><select name='change_isblock' id='change_isblock' data-eid='{$row["userid"]}'>
+                <option value='0'>APPROVED !</option>
                 <option value='1'>UN BLOCK - 1</option>
                 <option value='0'>BLOCK - 0</option>          
                 </select></td>
@@ -343,8 +404,8 @@ class userclasses {
 
     }
     function update_user_pending($id, $value, $data) {
-        $sql = "UPDATE user SET `isblock` = $value WHERE `userid`='$id'";
-        if ($data->query($sql) === TRUE) {
+        $sql = "UPDATE user SET `isblock` = '$value' WHERE `userid`='$id'";
+        if ($data->query($sql) === true) {
             $output = 1;
         } else {
        $output =  "Error updating record: " . $data->error;
@@ -364,12 +425,17 @@ class userclasses {
             <th>NAME</th>
             <th>DATE and TIME</th>
             <th>MOBILE</th>
-          
+            <th>ACTION</th>
       
             </tr>';
             while ($row = $result->fetch_assoc()){
                 $output.= "<tr align='center' height='40px'><td align='center'>{$row['userid']}</td><td>{$row['user_name']}</td><td>{$row['name']}</td><td>{$row['date_of_signup']}</td>
                 <td>{$row['mobile']}</td>
+                <td><select name='change_isblock' id='change_isblock' data-eid='{$row["userid"]}'>
+                <option value='0'>APPROVED !</option>
+                <option value='1'>UN BLOCK - 1</option>
+                <option value='0'>BLOCK - 0</option>          
+                </select></td>
                 </tr> ";
             }
             $output.= '</table>';
@@ -865,12 +931,14 @@ function approved_sort($data, $key) {
             <th>PICKUP</th>
             <th>DESTINATION</th>
             <th>DISTANCE</th>
+            <th>CAB TYPE</th>
             <th>CURRENT STATUS</th>
             <th>FARE</th>
       
             </tr>';
             while ($row = $result->fetch_assoc()){
                 $output.= "<tr align='center' height='40px'><td>{$row['ride_date']}</td><td align='center'>{$row['ride_id']}</td><td>{$row['loc_from']}</td><td>{$row['loc_to']}</td><td>{$row['total_distance']}</td>
+                <td>{$row['cab_type']}</td>
                 <td>{$row['status']}</td>
                 <td>{$row['total_fare']}</td>
                
@@ -896,6 +964,7 @@ function request_ride_sort( $data,$key){
         <th>DISTANCE</th>
         <th>CURRENT STATUS</th>
         <th>FARE</th>
+        <th>CAB TYPE</th>
         <th>CHANGE STATUS</th>
   
         </tr>';
@@ -903,6 +972,7 @@ function request_ride_sort( $data,$key){
             $output.= "<tr align='center' height='40px'><td align='center'>{$row['ride_date']}</td><td align='center'>{$row['ride_id']}</td><td>{$row['loc_from']}</td><td>{$row['loc_to']}</td><td>{$row['total_distance']}</td>
             <td>{$row['status']}</td>
             <td>{$row['total_fare']}</td>
+            <td>{$row['cab_type']}</td>
             <td><select name='change_status' id='change_status' data-eid='{$row["ride_id"]}'>
             <option value='2'>APPROVE - 2</option>
             <option value='3'>CANCEL - 3</option>          
@@ -915,6 +985,130 @@ function request_ride_sort( $data,$key){
         echo "Records not found";
     }
 }
+function cancel_ride_sort( $data,$key){
+    $output = "";
+    $sql = "SELECT * FROM ride WHERE `status` = 3 ORDER BY `$key` DESC" ;
+    $result = $data->query($sql);
+    if ($result->num_rows > 0) {
+        $output.= '<table border="1" width="100%" cellspacing="0" cellpadding ="10px">
+        <tr>
+        <th>DATE</th>
+        <th width="60px">ID</th>
+        <th>PICKUP</th>
+        <th>DESTINATION</th>
+        <th>DISTANCE</th>
+        <th>CURRENT STATUS</th>
+        <th>FARE</th>
+        <th>CAB TYPE</th> 
+        </tr>';
+        while ($row = $result->fetch_assoc()){
+            $output.= "<tr align='center' height='40px'><td align='center'>{$row['ride_date']}</td><td align='center'>{$row['ride_id']}</td><td>{$row['loc_from']}</td><td>{$row['loc_to']}</td><td>{$row['total_distance']}</td>
+            <td>{$row['status']}</td>
+            <td>{$row['total_fare']}</td>
+            <td>{$row['cab_type']}</td>            
+            </tr> ";
+        }
+        $output.= '</table>';
+        return $output;
+    } else {
+        echo "Records not found";
+    }
+}
+//sorting user by some specific
+function pending_user_sort($data, $key){
+    $output = "";
+    $sql = "SELECT * FROM user WHERE `isblock` = 0  ORDER BY `$key` DESC" ;
+    $result = $data->query($sql);
+    if ($result->num_rows > 0) {
+        $output.= '<table border="1" width="100%" cellspacing="0" cellpadding ="10px"  class=" text-center table-striped  table-sm">
+        <tr>
+        
+        <th>USER_ID</th>
+        <th>USER_NAME</th>
+        <th>NAME</th>
+        <th>DATE and TIME</th>
+        <th>MOBILE</th>
+        <th>ISBLOCK</th>
+  
+        </tr>';
+        while ($row = $result->fetch_assoc()){
+            $output.= "<tr align='center' height='40px'><td align='center'>{$row['userid']}</td><td>{$row['user_name']}</td><td>{$row['name']}</td><td>{$row['date_of_signup']}</td>
+            <td>{$row['mobile']}</td>
+            <td><select name='change_isblock' id='change_isblock' data-eid='{$row["userid"]}'>
+            <option value='1'>UN BLOCK - 1</option>
+            <option value='0'>BLOCK - 0</option>          
+            </select></td>
+            </tr> ";
+        }
+        $output.= '</table>';
+        return $output;
+    } else {
+        echo "Records not found";
+    }
+}
+function approved_user_sort($data, $key){
+    $output = "";
+    $sql = "SELECT * FROM user WHERE `isblock` = 1  ORDER BY `$key` DESC" ;
+    $result = $data->query($sql);
+    if ($result->num_rows > 0) {
+        $output.= '<table border="1" width="100%" cellspacing="0" cellpadding ="10px"  class=" text-center table-striped  table-sm">
+        <tr>
+        
+        <th>USER_ID</th>
+        <th>USER_NAME</th>
+        <th>NAME</th>
+        <th>DATE and TIME</th>
+        <th>MOBILE</th>
+        <th>ACTION</th>
+  
+        </tr>';
+        while ($row = $result->fetch_assoc()){
+            $output.= "<tr align='center' height='40px'><td align='center'>{$row['userid']}</td><td>{$row['user_name']}</td><td>{$row['name']}</td><td>{$row['date_of_signup']}</td>
+            <td>{$row['mobile']}</td>
+            <td><select name='change_isblock' id='change_isblock' data-eid='{$row["userid"]}'>
+                <option value='0'>APPROVED !</option>
+                <option value='1'>UN BLOCK - 1</option>
+                <option value='0'>BLOCK - 0</option>          
+                </select></td>
+            </tr> ";
+        }
+        $output.= '</table>';
+        
+    } else {
+        $output= "Records not found";
+    }
+    return $output;
+}
+function search_cab_for_all_user ($data, $key) {
+    $output = "";
+    $sql = "SELECT * FROM user WHERE `name` LIKE '%$key%' OR `user_name` LIKE '%$key%'" ;
+    $result = $data->query($sql);
+    if ($result->num_rows > 0) {
+        $output.= '<table border="1" width="100%" cellspacing="0" cellpadding ="10px"  class=" text-center table-striped  table-sm">
+        <tr>
+        
+        <th>USER_ID</th>
+        <th>USER_NAME</th>
+        <th>NAME</th>
+        <th>DATE and TIME</th>
+        <th>MOBILE</th>
+        <th>BLOCK_STATUS</th>
+        <th>ACTION</th>
+      
+  
+        </tr>';
+        while ($row = $result->fetch_assoc()){
+            $output.= "<tr align='center' height='40px'><td align='center'>{$row['userid']}</td><td>{$row['user_name']}</td><td>{$row['name']}</td><td>{$row['date_of_signup']}</td>
+            <td>{$row['mobile']}</td><td>{$row['isblock']}</td>
+            <td><button Class='delete-btn' data-id='{$row["userid"]}'>DELETE</button></td>
+            </tr> ";
+        }
+        $output.= '</table>';
+        return $output;
+    } else {
+        echo "Records not found";
+    }
 
+}
 }
 ?>

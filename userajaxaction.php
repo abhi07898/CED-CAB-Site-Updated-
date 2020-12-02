@@ -107,8 +107,14 @@ case 'comp_ride_search_filter' :
    $key = $_POST['key'];     
    $output = $obj->comp_ride_search_filter($id,$key);
    print_r($output);
-   // echo 'aa to rahi hia value';
 break;
+case 'all_ride_search_filter' :
+   $id = $_POST['id']; 
+   $key = $_POST['key'];     
+   $output = $obj->all_ride_search_filter($id,$key);
+   print_r($output);
+break;
+
 
 }
 ?>

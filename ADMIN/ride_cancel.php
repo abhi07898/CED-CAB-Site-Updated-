@@ -68,6 +68,13 @@ session_start();
         <h1>CANCEL RIDE REQUEST  </h1>
 
         <div id="search-bar">
+        <Select id = 'cancel_ride_sort'class='btn btn-outline-warning mt-2 ml-5 text-center text-dark '>
+        <option>SORT THE TABLE DATA</option>
+        <option value="ride_date">DATE</option>
+        <option value="total_distance">DISTANCE</option>
+        <option value="total_fare">FARE</option>
+        <option value="cab_type">CAB</option>
+      </Select>
         </div>
       </td>
     </tr>
@@ -97,7 +104,7 @@ session_start();
   </footer>
 <script>
  $(document).ready(function(){     
-        function loadTable() { 
+        function loadTable(page) { 
         var action="load_cancel_ride";           
               $.ajax ({
                   url: 'ajaxaction.php',
@@ -109,6 +116,23 @@ session_start();
               });
             }
         loadTable();
+        $(document).on("click","#pagination a",function(e) {
+          e.preventDefault();
+          var page_id = $(this).attr("id");
+          loadTable(page_id);
+        });
+        $('#cancel_ride_sort').change(function(){
+          var key = $(this).val();
+          var action="cancel_ride_sort";           
+              $.ajax ({
+                  url: 'ajaxaction.php',
+                  type : "POST",
+                  data : {action:action, key:key},
+                  success : function(data) {
+                      $('#table-data').html(data);
+                  }
+              });
+        });
         $(document).on("click",'.delete-btn',function(){
         var id =  $(this).data("id");
         var element = this;

@@ -123,18 +123,23 @@ session_start();
   </footer>
 <script>
  $(document).ready(function(){
-        function loadTable() { 
+        function loadTable(page) { 
         var action="load_rides_total_ride";           
               $.ajax ({
                   url: 'ajaxaction.php',
                   type : "POST",
-                  data : {action:action},
+                  data : {action:action,page_no:page},
                   success : function(data) {
                       $('#table-data').html(data);
                   }
               });
           } 
         loadTable();
+        $(document).on("click","#pagination a",function(e) {
+          e.preventDefault();
+          var page_id = $(this).attr("id");
+          loadTable(page_id);
+        });
         $('#filter_week').click(function(){
           var action="filter_week";           
               $.ajax ({

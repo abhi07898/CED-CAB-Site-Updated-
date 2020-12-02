@@ -116,7 +116,7 @@ include 'rideclasses.php';
     <div class="row">
     <div class="col">
       <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-        <div class="card-header text-center">Amount of Pending Ride:</div>
+        <div class="card-header text-center">Amount of Pending Ride (in Rs.):</div>
         <div class="card-body">
           <h5 class="card-title text-center text-light" id="Pending_ride_amount">Rs.</h5>
           <p class="card-text"></p>
@@ -129,7 +129,7 @@ include 'rideclasses.php';
     </div>
     <div class="col">
       <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-        <div class="card-header text-center">Amount of Complete Ride :<div id="comp_ride"></div></div>
+        <div class="card-header text-center">Amount of Complete Ride (in Rs.):<div id="comp_ride"></div></div>
           <div class="card-body">
             <h5 class="card-title text-center text-light"id="Complete_ride_amount"></h5>
             <p class="card-text"></p>
@@ -141,7 +141,7 @@ include 'rideclasses.php';
       </div>
       <div class="col">
       <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-        <div class="card-header text-center">Amount of All Ride</div>
+        <div class="card-header text-center">Amount of All Ride  (in Rs.)</div>
           <div class="card-body">
             <h5 class="card-title text-center text-light"id="All_ride_amount"></h5>
             <p class="card-text"></p>
@@ -207,7 +207,7 @@ include 'rideclasses.php';
   <option value="toatl_fare">Fare</option>
   <option value="ride_date">Date</option>
 </select>
-<input type="text" id="search" placeholder = 'Serch/Filter with CAB name' class='ml-5'>
+<input type="text" id="search" placeholder = 'Serch/Filter-to-from-cab-fare' class='ml-5 pl-3 pr-3'>
 </div>
   <table id="main" border="0" cellspacing="0" class="w-100">
     <tr>
@@ -229,7 +229,7 @@ include 'rideclasses.php';
   <option value="toatl_fare">Fare</option>
   <option value="ride_date">Date</option>
 </select>
-<input type="text" id="comp_search" placeholder = 'Serch/Filter with CAB name' class='ml-5'>
+<input type="text" id="comp_search" placeholder = 'Serch/Filter-to-from-cab-fare' class='ml-5 pl-3 pr-3'>
 </div>
   <table id="main" border="0" cellspacing="0" class="w-100">
     <tr>
@@ -244,6 +244,8 @@ include 'rideclasses.php';
 <!-- div for all rides -->
 <div id="all_rides_div">
   <div class="w-100 pt-2 pb-3  bg-dark text-light mt-2 text-center ">List of all Ride REQUEST
+  <input type="text" id="all_search" placeholder ='Serch/Filter-to-from-cab-fare' class='ml-5 pl-3 pr-3'>
+
   <div class="dropdown pull-right mb-1">
   <button class="btn btn-outline-warning mr-5 dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
    Filter Data
@@ -473,7 +475,7 @@ include 'rideclasses.php';
 
             });
             // Search The Pending Rides
-            $('#search').keyup(function(){
+          $('#search').keyup(function(){
             var search_key = $(this).val();
             var action = 'ride_search_filter';
             var id ='<?php echo $_SESSION['user']['id'];?>';
@@ -668,9 +670,31 @@ include 'rideclasses.php';
                         $('#all_table-data').html(output);
                       
                     }
-            });
-                
+                });               
               });
+              //searching data for all rides 
+            $('#all_search').keyup(function(){
+              var search_key = $(this).val();
+              var action = 'all_ride_search_filter';
+              var id ='<?php echo $_SESSION['user']['id'];?>';
+              $.ajax({
+                url : 'userajaxaction.php',
+                type:'POST',
+                dataType:'json',
+                data : {action:action,key:search_key,id:id},
+                success : function(data) {
+                  output = '<table border="1" width="100%" cellspacing="0" cellpadding ="10px">';
+                      output+="<tr align='center' height='40px'><th>RIDE DATE</th><th>PICKUP</th><th>DESTINATION</th><th>DISTANCE</th><th>CAB TYPE</th><th>FARE</th></tr>";
+            
+                      for(i=0;i<data.length;i++) {
+                          output+="<tr align='center' height='40px'><td align='center'>"+data[i]['ride_date']+"</td><td>"+data[i]['loc_from']+"</td><td>"+data[i]['loc_to']+"</td><td>"+data[i]['total_distance']+"</td><td>"+data[i]['cab_type']+"</td><td>"+data[i]['total_fare']+"</td></tr> ";                       
+                      }
+                      output+='</table>';
+                      $('#all_table-data').html(output);
+                }          
+              });           
+            });
+              //closing serching for all rides on user hand
               $('#date').click(function(e){
                 e.preventDefault();
                 var action = "sort_date";

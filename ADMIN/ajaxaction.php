@@ -38,8 +38,14 @@ switch($action) {
    $output = $userclass -> update_data($id, $loc, $dist, $avail, $data);
    echo $output;
 break;
-case 'load-ride' :      
-   $output = $userclass -> load_data_for_ride( $data);
+case 'load-ride' : 
+   $page = "";
+   if(isset($_POST["page_no"])){
+     $page = $_POST["page_no"];
+   }else{
+     $page = 1;
+   }   
+   $output = $userclass -> load_data_for_ride( $data,$page);
    echo $output; 
 break;
 case 'update-ride' :  
@@ -48,8 +54,14 @@ case 'update-ride' :
    $output = $userclass -> update_data_for_ride( $data,$id, $value);
    echo $output; 
 break;
-case 'load_total_ride' :      
-   $output = $userclass -> load_data_for_approved_ride( $data);
+case 'load_total_ride' :
+   $page = '';
+   if(isset($_POST['page_no'])) {
+      $page = $_POST['page_no'];
+   } else {
+      $page = 1;
+   }
+   $output = $userclass -> load_data_for_approved_ride( $data, $page);
    echo $output; 
 break;
 
@@ -59,13 +71,25 @@ case 'delete_total_ride' :
    echo $output; 
 break;
 
-case 'load_cancel_ride' :     
-   $output = $userclass -> load_data_for_cancel_ride($data);
+case 'load_cancel_ride' :  
+   $page = '';
+   if(isset($_POST['page_no'])){
+      $page = $_POST['page_no'];
+   } else {
+      $page = 1;
+   }
+   $output = $userclass -> load_data_for_cancel_ride($data,$page);
    echo $output; 
 break;
 
-case 'load_rides_total_ride' :     
-   $output = $userclass -> load_data_for_whole_ride($data);
+case 'load_rides_total_ride' :  
+   $page = "";
+   if(isset($_POST["page_no"])){
+     $page = $_POST["page_no"];
+   }else{
+     $page = 1;
+   }    
+   $output = $userclass -> load_data_for_whole_ride($data,$page);
    echo $output; 
 break;
 
@@ -167,7 +191,26 @@ case 'request_ride_sort' :
    $output = $userclass -> request_ride_sort($data, $key);
    echo $output; 
 break;
-
+case 'cancel_ride_sort' :  
+   $key = $_POST['key'];   
+   $output = $userclass -> cancel_ride_sort($data, $key);
+   echo $output; 
+break;
+case 'pending_user_sort' :  
+   $key = $_POST['key'];   
+   $output = $userclass -> pending_user_sort($data, $key);
+   echo $output; 
+break;
+case 'approved_user_sort' :  
+   $key = $_POST['key'];   
+   $output = $userclass -> approved_user_sort($data, $key);
+   echo $output; 
+break;
+case 'search_cab_for_all_user' :  
+   $key = $_POST['key'];   
+   $output = $userclass -> search_cab_for_all_user ($data, $key);
+   echo $output; 
+break;
 } 
 
 

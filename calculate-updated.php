@@ -84,13 +84,4 @@ $_SESSION['cart']=array(
     'luggage_amount'=>$luggage_amount,
     'ftotal_amount'=>($fare + $luggage_amount));
 
-    // if(isset($_SESSION['cart'])) {
-        // $output.= '<tr><td>cab-service</td><td >'. $_SESSION['cart']['cabdata']. '</td></tr>';
-        // $output.= '<tr><td>Total-Distance</td><td >'. $_SESSION['cart']['calculated_distance'] . '.km </td></tr>';
-        // $output.= '<tr><td>Fare-Amout</td><td >'. $_SESSION['cart']['fare'] .'.Rs </td></tr>';
-        // $output.='<tr><td>Fare for Luggage</td><td >'. $_SESSION['cart']['luggage_amount']. '. Rs </td></tr>';
-        // $output.='<tr><td>Total-Fare(fare+luggage) </td><td >'.$_SESSION['cart']['ftotal_amount'] . '. Rs </td></tr>';
-        // $output.='</table>';
-        // echo $output;
-    // }
 ?>

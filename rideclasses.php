@@ -249,7 +249,7 @@ public function invoice($id) {
   }
 }
 public function ride_search_filter($id,$key) {
-  $sql = "SELECT * FROM ride WHERE `cust_id`='$id' AND `status`=1 AND `cab_type` LIKE '%$key%'";
+  $sql = "SELECT * FROM ride WHERE `cust_id`='$id' AND `status`=1 AND `cab_type` LIKE '%$key%' OR `loc_from` LIKE '%$key%' OR `loc_to` LIKE '$key' OR  `total_distance` LIKE '$key'";
   $result = $this->data->query($sql);
   $row = [];
   if ($result->num_rows > 0) {
@@ -262,7 +262,21 @@ public function ride_search_filter($id,$key) {
   }  
 }
 public function comp_ride_search_filter($id,$key) {
-  $sql = "SELECT * FROM ride WHERE `cust_id`='$id' AND `status`=1 AND `cab_type` LIKE '%$key%'";
+  $sql = "SELECT * FROM ride WHERE `cust_id`='$id' AND `status`=1 AND `cab_type` LIKE '%$key%' OR `loc_from` LIKE '%$key%' OR `loc_to` LIKE '$key' OR  `total_distance` LIKE '$key'";
+  $result = $this->data->query($sql);
+  $row = [];
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+       $rows[] = $row;
+  }
+   return json_encode($rows);
+  } else {
+    return  "No Records Found";
+  }  
+}
+//filter for all rides on user 
+public function all_ride_search_filter($id,$key) {
+  $sql = "SELECT * FROM ride WHERE `cust_id`='$id' AND `cab_type` LIKE '%$key%' OR `loc_from` LIKE '%$key%' OR `loc_to` LIKE '$key' OR  `total_distance` LIKE '$key'";
   $result = $this->data->query($sql);
   $row = [];
   if ($result->num_rows > 0) {

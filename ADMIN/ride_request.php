@@ -73,6 +73,7 @@ session_start();
         <option value="ride_date">DATE</option>
         <option value="total_distance">DISTANCE</option>
         <option value="total_fare">FARE</option>
+        <option value="cab_type">CAB</option>
       </Select>
         </div>
       </td>
@@ -104,18 +105,25 @@ session_start();
 <script>
  $(document).ready(function(){
      
-        function loadTable() { 
+        function loadTable(page) { 
         var action="load-ride";           
               $.ajax ({
                   url: 'ajaxaction.php',
                   type : "POST",
-                  data : {action:action},
+                  data : {action:action,page_no:page},
                   success : function(data) {
                       $('#table-data').html(data);
                   }
               });
           } 
         loadTable();
+        //pagination code
+        $(document).on("click","#pagination a",function(e) {
+          e.preventDefault();
+          var page_id = $(this).attr("id");
+          loadTable(page_id);
+        })
+        //closing pagination code
         $('#request_ride_sort').change(function(){
           var key = $(this).val();
           var action="request_ride_sort";           
@@ -128,11 +136,10 @@ session_start();
                   }
               });
         });
-      $(document).on("click",'#change_status',function(){
+      $(document).on("change",'#change_status',function(){
         var id =  $(this).data("eid");
         var value = $(this).val();
         var element = this;
-        if (value==2){
           var action="update-ride";           
             $.ajax ({
                 url: 'ajaxaction.php',
@@ -144,9 +151,7 @@ session_start();
                     loadTable();
                   }
                 }
-            });
-        }
-       
+            });       
       });
  });
    
