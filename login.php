@@ -59,7 +59,7 @@ include 'login_valid.php';
     </nav>
 </header>
 <div class="login_info"> Heiiiiii--- Hello before try tp login ..you have to make sure you are already registred, If you not registered --first register yoursel</b></div>
-<a href="index.php"><button class="btn-outline-success mt-5">Not Intrested --Go Back from here</button></a>
+<a href="index.php"><button class="btn-outline-success mt-5 ml-5">Not Intrested --Go Back from here</button></a>
     <section>
         <div class="signuptable">
             <form action="" method="POST">

@@ -127,7 +127,8 @@ include 'locationclass.php';
                                 ?>
                             <tr>
                                 <td><a id="book_now" class="btn-design bg-warning pt-1 pl-2 pr-2 pb-1" href="user_dashboard.php">BOOK NOW</a></td>
-                                <td><button onClick="location.reload(true)" class="btn-design bg-warning pt-1 pl-2 pr-2 pb-1">Cancel</button></td>
+                                <!-- <td><button onClick="location.reload(true)" class="btn-design bg-warning pt-1 pl-2 pr-2 pb-1">Cancel</button></td> -->
+                                <td><a href="cart_unset.php"><button class="btn-design bg-warning pt-1 pl-2 pr-2 pb-1">Cancel</button></a></td>
                             </tr>
                         </table>                        
                     </div>                 

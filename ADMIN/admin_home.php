@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +16,7 @@ session_start();
 <body>
     <header>    
         <div class="top-foot" >
-            Welcome to this ADMIN Pannel Dashnoard
+            Welcome to this ADMIN Pannel Dashboard
         </div>
     </header>
     <section>
@@ -26,7 +27,7 @@ session_start();
     <?php 
     if (!isset($_SESSION['admin'])) 
         {
-            echo '<script>window.location="../USER/login.php"</script>';
+            echo '<script>window.location="../login.php"</script>';
             // header('location:login.php');
             $third_menu = "REVIEWS";
         } else {
@@ -138,7 +139,7 @@ session_start();
     <div class="row">
     <div class="col">
       <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-        <div class="card-header text-center">Amount of Pending Ride:</div>
+        <div class="card-header text-center">Amount of Pending Ride in Rs:</div>
         <div class="card-body">
           <h5 class="card-title text-center text-light" id="Pending_ride_amount">Rs.</h5>
           <p class="card-text"></p>
@@ -150,7 +151,7 @@ session_start();
     </div>
     <div class="col">
       <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-        <div class="card-header text-center">Amount of Complete Ride :<div id="comp_ride"></div></div>
+        <div class="card-header text-center">Amount of Complete Ride in Rs:<div id="comp_ride"></div></div>
           <div class="card-body">
             <h5 class="card-title text-center text-light"id="Complete_ride_amount"></h5>
             <p class="card-text"></p>
@@ -162,7 +163,7 @@ session_start();
       </div>
       <div class="col">
       <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
-        <div class="card-header text-center">Amount of All Ride</div>
+        <div class="card-header text-center">Amount of All Ride in Rs.</div>
           <div class="card-body">
             <h5 class="card-title text-center text-light"id="All_ride_amount"></h5>
             <p class="card-text"></p>

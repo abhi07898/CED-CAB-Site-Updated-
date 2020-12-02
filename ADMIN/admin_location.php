@@ -1,6 +1,9 @@
 <?php
 session_start();
-// include 'userclasses.php';
+if (!isset($_SESSION['admin'])) 
+        {
+            echo '<script>window.location="../login.php"</script>';
+        }
 ?>
 <!DOCTYPE html>
 <html lang="en">
