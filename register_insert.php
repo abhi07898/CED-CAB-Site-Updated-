@@ -14,7 +14,10 @@ if (isset($_POST ['register'])) {
     }
     if (empty($_POST['name'])) {
         $name_err = "Required Field";
-    } else {
+    } else if( !preg_match ("/^[a-zA-Z\s]+$/",$_POST['name'])) {
+        $name_err = "Only String are allowed";
+     }
+     else {
         $name = $_POST['name'];
     }
     if (empty($_POST['password'])) {
