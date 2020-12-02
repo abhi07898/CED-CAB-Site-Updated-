@@ -7,15 +7,11 @@ include 'login_valid.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="ADMIN/style.css">
+    <link rel="stylesheet" href="gui.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <title>register Yourself</title>
 </head>
 <body>
-    <header>
-        <div class="top-foot">
-            Welcome to The Ced-Cab PORTAL 
-        </div>
-            </header>
 <header>
             <!-- data-toggle="slide-collapse" data-target="#navbarCollapse" -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light  sticky">
@@ -26,34 +22,11 @@ include 'login_valid.php';
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link btn btn-outline-secondary mr-2" href="">Home<span class="sr-only">(current)</span></a>
+                <a class="nav-link btn btn-outline-secondary mr-2" href="index.php">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link btn btn-outline-secondary mr-2 " href="index.php">BOOK NEW RIDE <span class="sr-only">(current)</span></a>
+                <a class="nav-link btn  mr-2" href="">Sign in is the way to access whole data<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item active">
-                <div class="dropdown">
-                <button class="btn btn-outline-secondary dropdown-toggle mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Rides
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" id="pending_rides">Pending Rides</a>
-                    <a class="dropdown-item" href="#" id = "complete_rides">Complete Rides</a>
-                    <a class="dropdown-item" href="#" id = "all_rides">All Rides</a>
-                </div>
-                </div>
-            </li>
-            <li class="nav-item active">
-                <div class="dropdown">
-                <button class="btn btn-outline-secondary dropdown-toggle mr-2 " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    ACCOUNT
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" id="update_info" data-toggle="modal" data-target="#updateinfomodal">Update Information</a>
-                    <a class="dropdown-item" href="#" id="change_pass" data-toggle="modal" data-target="#updatepasswordmodal">Change Password</a>
-                </div>
-                </div>
-            </li>               
             </ul>                    
         </div>
     </nav>

@@ -90,7 +90,7 @@ include 'locationclass.php';
                             </tr>
                             <tr>
                                 <td class="td-design"><span>LUGGAGE</span></td>
-                                <td><input type="text" class="form-control" id='luggage' placeholder="ENTER YOUR LUGGAGE AMAOUNT IN KG."></td>
+                                <td><input type="number" class="form-control" id='luggage' placeholder="ENTER YOUR LUGGAGE AMAOUNT IN KG."></td>
                             </tr>
                             <tr>
                                 <td colspan="2"> <input type="submit" class="form-control btn-warning submitt" id="submit" value="CALCULATE FARE" ></td>

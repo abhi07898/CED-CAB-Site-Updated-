@@ -98,6 +98,7 @@ include 'rideclasses.php';
                         $obj = new rideclasses();
                         $data = $obj->insert_ride($from,$to,$total_distance, $luggage, $total_fare,$cab_type, $cust_id);
                         if($data == "Inserted") {
+                          echo '<script>alert("Hey..Please wait for admin approval.... ")</script>';
                           unset($_SESSION['cart']);  
                         }                      
                     }
@@ -368,7 +369,8 @@ include 'rideclasses.php';
       <div class="modal-footer">
       If you have any query .. or suggestion or problem with CED CAB you can fell free to contact with us 8000400567
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick = "window.print();">PRINT INVOICE</button>
+        <!-- <button type="button" class="btn btn-primary" onclick = "window.print();">PRINT INVOICE</button> -->
+        <button type="button" class="btn btn-primary" onclick = "Modal_print('exampleModalCenter');">PRINT INVOICE</button>
       </div>
     </div>
   </div>
@@ -854,11 +856,13 @@ include 'rideclasses.php';
           var id = $('#id').val();
           var name = $('#Name').val();
           var contact = $('#Contact').val();
-          if(contact.length==10) {
-            valcontact = contact; 
-          } else {
+          if(contact=='' || name == '') {
+            alert("name and Contact are required");
+          } else if(contact.length!==10) {
             alert("mobile number not in perfect length");
-          }
+           
+          } else {
+            valcontact = contact; 
           var action = 'update_user_info';
           $.ajax({
             url:'userajaxaction.php',
@@ -868,6 +872,7 @@ include 'rideclasses.php';
               alert(data);
             }
           });
+          }
         }); 
         $('#Changepass').click(function(e){
           e.preventDefault();
@@ -887,8 +892,20 @@ include 'rideclasses.php';
               }
             }
           });
-        });     
+        });   
+       
        });
+        //modal print query 
+        function Modal_print(exampleModalCenter) {
+          var print_page = document.getElementById("exampleModalCenter");
+          winPrint = window.open("", "",'width=900, height=500');
+          winPrint.document.write(print_page.innerHTML);
+          winPrint.document.close();
+          winPrint.focus();
+          winPrint.print();
+          winPrint.close();
+        }
+        //close modal print query  
     </script>   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   </body>
