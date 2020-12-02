@@ -55,7 +55,7 @@
                     </tr>
                     <tr>
                         <td>MOBILE </td>
-                        <td><input type="text" name='mobile' id="mobile"><span><?php echo $mobile_err; ?></span></td>
+                        <td><input type="number" name='mobile' id="mobile"><span><?php echo $mobile_err; ?></span></td>
                     </tr>
                     <tr>
                         <td colspan="2"> <input type="submit" name="register" value="REGISTER YOUR SELF"> </td>                   
