@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-
 // include 'userclasses.php';
 include 'locationclass.php';
 // $obj = new userclasses();
@@ -34,9 +33,18 @@ include 'locationclass.php';
                         <li class="nav-item active">
                             <a class="nav-link " href="#">Welcome to the world best Cab  SERVICE with <b>Senetize and proper Secure</b><span class="sr-only">(current)</span></a>
                         </li> 
-                        <li class="nav-item active">
-                            <a class="btn btn-outline-danger" href="login.php" role="button">LOGIN</a>
-                        </li> 
+                        <?php 
+                        if(isset($_SESSION['user'])){
+                            $option = $_SESSION['user']['name'];
+                            echo '<a href="user_dashboard.php" class="btn btn-outline-danger">Hello Mr .'.$option.'</a>';
+
+                        } else {
+                            echo '<li class="nav-item active">
+                                        <a class="btn btn-outline-danger" href="login.php" role="button">LOGIN</a>
+                                  </li> ';
+                        }
+                            ?>
+                        
                         </ul>                    
                     </div>
                 </nav>
@@ -90,7 +98,7 @@ include 'locationclass.php';
                             </tr>
                             <tr>
                                 <td class="td-design"><span>LUGGAGE</span></td>
-                                <td><input type="number" class="form-control" id='luggage' placeholder="ENTER YOUR LUGGAGE AMAOUNT IN KG."></td>
+                                <td><input type="number" class="form-control" min="1" id='luggage' placeholder="ENTER YOUR LUGGAGE AMAOUNT IN KG."></td>
                             </tr>
                             <tr>
                                 <td colspan="2"> <input type="submit" class="form-control btn-warning submitt" id="submit" value="CALCULATE FARE" ></td>
@@ -100,7 +108,9 @@ include 'locationclass.php';
                     </div>                    
                 </div>                              
             </div>           
-        </div>      
+        </div>  
+        <?php  if(!empty($_SESSION['cart'])) :
+            ?>    
     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 result-field" id="result-col">
             <div class="fare-content">
                 <div class="formm">
@@ -117,18 +127,18 @@ include 'locationclass.php';
                             
                             <tbody id="result">
                             <?php
-                                if(isset($_SESSION['cart'])) {
+                                // if(isset($_SESSION['cart'])) {
                                     echo  '<tr><td>cab-service</td><td >'. $_SESSION['cart']['cabdata']. '</td></tr>';
                                     echo  '<tr><td>Total-Distance</td><td >'. $_SESSION['cart']['calculated_distance'] . '.km </td></tr>';
                                     echo  '<tr><td>Fare-Amout</td><td >'. $_SESSION['cart']['fare'] .'.Rs </td></tr>';
                                     echo '<tr><td>Fare for Luggage</td><td >'. $_SESSION['cart']['luggage_amount']. '. Rs </td></tr>';
                                     echo '<tr><td>Total-Fare(fare+luggage) </td><td >'.$_SESSION['cart']['ftotal_amount'] . '. Rs </td></tr>';
-                                } 
+                                // } 
                                                          
                                 ?>
                             </tbody>
                             <tr>
-                                <td><a id="book_now" class="btn-design bg-warning pt-1 pl-2 pr-2 pb-1" href="user_dashboard.php">BOOK NOW</a></td>
+                                <td><a id="book_now" class="btn-design bg-warning pt-2 pl-3 pr-3 pb-2" href="user_dashboard.php">BOOK NOW</a></td>
                                 <!-- <td><button onClick="location.reload(true)" class="btn-design bg-warning pt-1 pl-2 pr-2 pb-1">Cancel</button></td> -->
                                 <td><a href="cart_unset.php"><button class="btn-design bg-warning pt-1 pl-2 pr-2 pb-1">Cancel</button></a></td>
                             </tr>
@@ -137,6 +147,7 @@ include 'locationclass.php';
                  </div>
             </div>
         </div>
+                                <?php endif;?>
 <footer>
     <div class="container-fluid bg-light pt-2">
       <div class="row">
@@ -167,12 +178,13 @@ include 'locationclass.php';
             $('#cab').change(function(){              
                 if( $('#cab').val()=='CedMicro') {
                     $('#luggage').prop('disabled', true);
+                    $('#luggage').val('');
                 } else {
                     $('#luggage').prop('disabled', false);
                 }
             });
             
-            $('#result-col').hide();
+            // $('#result-col').hide();
             $('#luggage').keyup(function () { 
                 this.value = this.value.replace(/[^0-9\.]/g,'');
             });
@@ -194,10 +206,10 @@ include 'locationclass.php';
                     type : "POST",
                      data : {pick:pickup,dest:destination,cab:cab,luggage:number},
                     success : function(data) {
-                        $('#result').html(data);
+                        window.location.href='index.php';
                     }
                    });
-                   $('#result-col').show().fadeIn(200);
+                //    $('#result-col').show().fadeIn(200);
               }                                                  
             }); 
             

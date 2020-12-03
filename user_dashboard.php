@@ -37,7 +37,7 @@ include 'rideclasses.php';
                             <a class="nav-link btn btn-outline-secondary mr-2" href="">Home<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link btn btn-outline-secondary mr-2 " href="index_after_login.php">BOOK NEW RIDE <span class="sr-only">(current)</span></a>
+                            <a class="nav-link btn btn-outline-secondary mr-2 " href="index.php">BOOK NEW RIDE <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
                             <div class="dropdown">
@@ -46,8 +46,8 @@ include 'rideclasses.php';
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="#" id="pending_rides">Pending Rides</a>
-                                <a class="dropdown-item" href="#" id = "complete_rides">Complete Rides</a>
-                                <a class="dropdown-item" href="#" id = "all_rides">All Rides</a>
+                                <a class="dropdown-item" href="#" id ="complete_rides">Complete Rides</a>
+                                <a class="dropdown-item" href="#" id ="all_rides">All Rides</a>
                             </div>
                             </div>
                         </li>
@@ -110,44 +110,87 @@ include 'rideclasses.php';
     <div class="col-lg-1 col-md-1 col-sm-12 mb-5 pb-3 pt-3">
         
     </div>
-    <div class="col-lg-10 col-md-10 col-sm-12 mb-5 pb-3 pt-3">
-    <div id="showdashboard">
+    <div class="col-lg-10 col-md-10 col-sm-12 mb-5 pb-3 pt-1">
+<div id="showdashboard">
 <section>
-  <div class="container mt-5">
+  <div class="container mt-2">
     <div class="row">
-    <div class="col">
-      <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+    <div class="col  btn btn-btn-danger" id="pending_tiles">
+      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+        <div class="card-header text-center">Pending Ride <div id='calculate_pending'><script></script></div></div>
+        <div class="card-body">
+          <h5 class="card-title text-center text-light" id="Pending_ride"></h5>
+          <p class="card-text"></p>
+          <div class="card-footer" >
+          <span class = 'btn btn-outline-light'> Click Here for details ....</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col btn btn-btn-danger"  id="complete_tiles">
+      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+        <div class="card-header text-center">Complete Ride </div>
+          <div class="card-body">
+            <h5 class="card-title text-center text-light" id="Complete_ride"> </h5>
+            <p class="card-text"></p>
+            <div class="card-footer">
+            <span class = 'btn btn-outline-light'> Click Here for details ....</span>
+            </div>
+          </div>
+        </div>       
+      </div>
+      <div class="col  btn btn-btn-danger" id="total_tiles">
+      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+        <div class="card-header text-center">Total Ride</div>
+          <div class="card-body">
+            <h5 class="card-title text-center text-light" id="All_ride"></h5>
+            <p class="card-text"></p>
+            <div class="card-footer">
+            <span class = 'btn btn-outline-light'> Click Here for details ....</span>
+            </div>
+          </div>
+        </div>       
+      </div>
+    </div>    
+  </div>
+</scetion>  
+
+<section>
+  <div class="container">
+    <div class="row">
+    <div class="col ">
+      <div class="card text-white bg-danger " style="max-width: 18rem;">
         <div class="card-header text-center">Amount of Pending Ride (in Rs.):</div>
         <div class="card-body">
           <h5 class="card-title text-center text-light" id="Pending_ride_amount">Rs.</h5>
           <p class="card-text"></p>
          
-          <div class="card-footer">
-           Use ride menu for more info.
+          <div class="card-footer text-center">
+            <span class = 'btn btn-outline-light' disabled> Specific ride-amount ....</span>
           </div>
         </div>
       </div>
     </div>
     <div class="col">
-      <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+      <div class="card text-white bg-danger " style="max-width: 18rem;">
         <div class="card-header text-center">Amount of Complete Ride (in Rs.):<div id="comp_ride"></div></div>
           <div class="card-body">
             <h5 class="card-title text-center text-light"id="Complete_ride_amount"></h5>
             <p class="card-text"></p>
-            <div class="card-footer">
-           Use ride menu for more info.
+            <div class="card-footer text-center" id="complete_tiles">
+              <span class = 'btn btn-outline-light' disabled> Specific ride-amount ....</span>
           </div>
           </div>
         </div>       
       </div>
       <div class="col">
-      <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+      <div class="card text-white bg-danger " style="max-width: 18rem;">
         <div class="card-header text-center">Amount of All Ride  (in Rs.)</div>
           <div class="card-body">
             <h5 class="card-title text-center text-light"id="All_ride_amount"></h5>
             <p class="card-text"></p>
-            <div class="card-footer">
-           Use ride menu for more info.
+            <div class="card-footer text-center" id="all_tiles">
+            <span class = 'btn btn-outline-light' disabled> Specific ride-amount ....</span>
           </div>
 
           </div>
@@ -156,48 +199,7 @@ include 'rideclasses.php';
     </div>    
   </div>
 </scetion>  
-<section>
-  <div class="container">
-    <div class="row">
-    <div class="col">
-      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-        <div class="card-header text-center">Pending Ride <div id='calculate_pending'><script></script></div></div>
-        <div class="card-body">
-          <h5 class="card-title text-center text-light" id="Pending_ride"></h5>
-          <p class="card-text"></p>
-          <div class="card-footer">
-           Use ride menu for more info.
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-        <div class="card-header text-center">Complete Ride </div>
-          <div class="card-body">
-            <h5 class="card-title text-center text-light" id="Complete_ride"> </h5>
-            <p class="card-text"></p>
-            <div class="card-footer">
-             Use ride menu for more info.
-            </div>
-          </div>
-        </div>       
-      </div>
-      <div class="col">
-      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-        <div class="card-header text-center">Total Ride</div>
-          <div class="card-body">
-            <h5 class="card-title text-center text-light" id="All_ride"></h5>
-            <p class="card-text"></p>
-            <div class="card-footer">
-             Use ride menu for more info.
-            </div>
-          </div>
-        </div>       
-      </div>
-    </div>    
-  </div>
-</scetion>  
+
 </div>
 <!-- div for pending rides -->
 <div id="pending_rides_div">
@@ -216,8 +218,6 @@ include 'rideclasses.php';
       </td>
     </tr>
   </table>
-
-
 </div>
 <!-- closing div for pending rides  -->
 <!-- div for complete rides -->
@@ -377,7 +377,7 @@ include 'rideclasses.php';
 </div>
 <!-- closing moadl fr invoice -->
 <footer>
-    <div class="container-fluid bg-light pt-2">
+    <div class="container-fluid bg-light">
       <div class="row">
         <div class="col-sm-12  col-md-4 col-lg-4 col-xl-4 text-center">
           <i class="fa fa-facebook-square fa-3x" aria-hidden="true"></i>
@@ -428,7 +428,13 @@ include 'rideclasses.php';
           }
         }); 
         $('#pending_rides').click(function(){
-          function pending_rides() {
+          pendingRides();
+        });
+        
+        $('#pending_tiles').click(function(){
+          pendingRides();
+        });
+        function pendingRides(){
             $('#showdashboard').hide();
             $('#complete_rides_div').hide();
             $('#all_rides_div').hide();
@@ -451,8 +457,6 @@ include 'rideclasses.php';
                     $('#pending_table-data').html(output);
                 }
             });
-          }
-          pending_rides();
           // Sort the Pending rides 
             $('#pend_ride_sort').change(function(){
               var key = $(this).val();
@@ -491,7 +495,6 @@ include 'rideclasses.php';
                     alert(data);
                   }
                 }
-
               });
             });
             //close cancel pending ride
@@ -515,12 +518,17 @@ include 'rideclasses.php';
                     output+='</table>';
                     $('#pending_table-data').html(output);
               }          
-            });
-           
+            });           
           });
-
-        });
+        }
         $('#complete_rides').click(function(){
+          completeRides(); 
+        }); 
+        $('#complete_tiles').click(function(){
+          completeRides();
+        });
+  //craete function for complete rides  
+        function completeRides(){
           function complete_rides() {
             $('#showdashboard').hide();
             $('#complete_rides_div').show();
@@ -572,10 +580,7 @@ include 'rideclasses.php';
               }
             }) 
             });
-            //closing of invoice details
-                
-
-            
+            //closing of invoice details            
             $('#comp_ride_sort').change(function(){
               var key = $(this).val();
               var action = 'comp_ride_sort';
@@ -596,11 +601,7 @@ include 'rideclasses.php';
                     $('#complete_table-data').html(output);
                 }
             });
-
             });
-
-
-
             // complete ride filter with car name
             $('#comp_search').keyup(function(){
             var search_key = $(this).val();
@@ -621,13 +622,20 @@ include 'rideclasses.php';
                     output+='</table>';
                     $('#complete_table-data').html(output);
               }          
-            });
-           
+            });          
           });
             //closing of filter with name of complete ride
-        });        
+        } 
+//closing function of complete rides    
         $('#all_rides').click(function(){
-          function all_rides() {
+          allRides();
+        });
+        $('#total_tiles').click(function(){
+          allRides();
+        })
+// create function for all rides
+function allRides(){
+  function all_rides() {
             $('#showdashboard').hide();
             $('#complete_rides_div').hide();
             $('#all_rides_div').show();
@@ -868,8 +876,8 @@ include 'rideclasses.php';
                     }
                 });
               });
-        
-          });
+} 
+//closing funciton of all rides
 
         $('#Updateinfo').click(function(){
           var id = $('#id').val();

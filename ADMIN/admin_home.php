@@ -101,8 +101,8 @@ session_start();
         <div class="card-body">
           <h5 class="card-title text-center text-light" id="Pending_user">Rs.</h5>
           <p class="card-text"></p>
-          <div class="card-footer">
-           Use  menu for more info.
+          <div class="card-footer text-center">
+              <a href="" class="btn btn-outline-light text-center" id="pending_user_tiles">Click for more Info</a>
           </div>
         </div>
       </div>
@@ -113,9 +113,9 @@ session_start();
           <div class="card-body">
             <h5 class="card-title text-center text-light"id="Approved_user"></h5>
             <p class="card-text"></p>
-            <div class="card-footer">
-             Use menus for more info.
-            </div>
+            <div class="card-footer text-center">
+              <a href="" class="btn btn-outline-light text-center" id="approved_user_tiles">Click for more Info</a>
+          </div>
           </div>
         </div>       
       </div>
@@ -125,15 +125,58 @@ session_start();
           <div class="card-body">
             <h5 class="card-title text-center text-light"id="All_user"></h5>
             <p class="card-text"></p>
-            <div class="card-footer">
-             Use  menus for more info.
-            </div>
+            <div class="card-footer text-center">
+              <a href="" class="btn btn-outline-light text-center" id="all_user_tiles">Click for more Info</a>
+          </div>
+          </div>
+        </div>       
+      </div>
+    </div>    
+  </div>
+</scetion> 
+<section>
+  <div class="container">
+    <div class="row">
+   <div class="col">
+      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+        <div class="card-header text-center">Pending Ride <div id='calculate_pending'><script></script></div></div>
+        <div class="card-body">
+          <h5 class="card-title text-center text-light" id="Pending_ride"></h5>
+          <p class="card-text"></p>
+          <div class="card-footer text-center">
+          <a href="ride_request.php" class="btn btn-outline-light text-center ">Click for more Info</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+        <div class="card-header text-center">Complete Ride </div>
+          <div class="card-body">
+            <h5 class="card-title text-center text-light" id="Complete_ride"> </h5>
+            <p class="card-text"></p>
+            <div class="card-footer text-center">
+              <a href="ride_approved.php" class="btn btn-outline-light text-center ">Click for more Info</a>
+          </div>
+          </div>
+        </div>       
+      </div>
+      <div class="col">
+      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+        <div class="card-header text-center">Total Ride</div>
+          <div class="card-body">
+            <h5 class="card-title text-center text-light" id="All_ride"></h5>
+            <p class="card-text"></p>
+            <div class="card-footer text-center">
+              <a href="ride_total.php" class="btn btn-outline-light text-center ">Click for more Info</a>
+          </div>
           </div>
         </div>       
       </div>
     </div>    
   </div>
 </scetion>  
+
 <section>
   <div class="container">
     <div class="row">
@@ -171,48 +214,6 @@ session_start();
              Use ride menu for more info.
             </div>
 
-          </div>
-        </div>       
-      </div>
-    </div>    
-  </div>
-</scetion>  
-<section>
-  <div class="container">
-    <div class="row">
-    <div class="col">
-      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-        <div class="card-header text-center">Pending Ride <div id='calculate_pending'><script></script></div></div>
-        <div class="card-body">
-          <h5 class="card-title text-center text-light" id="Pending_ride"></h5>
-          <p class="card-text"></p>
-          <div class="card-footer">
-           Use ride menu for more info.
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-        <div class="card-header text-center">Complete Ride </div>
-          <div class="card-body">
-            <h5 class="card-title text-center text-light" id="Complete_ride"> </h5>
-            <p class="card-text"></p>
-            <div class="card-footer">
-             Use ride menu for more info.
-            </div>
-          </div>
-        </div>       
-      </div>
-      <div class="col">
-      <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-        <div class="card-header text-center">Total Ride</div>
-          <div class="card-body">
-            <h5 class="card-title text-center text-light" id="All_ride"></h5>
-            <p class="card-text"></p>
-            <div class="card-footer">
-             Use ride menu for more info.
-            </div>
           </div>
         </div>       
       </div>
@@ -364,8 +365,16 @@ session_start();
           }
         });
        $('#pending_user').click(function(e){
-         e.preventDefault();
-         $('#showdashboard').hide();
+        e.preventDefault();
+        pendingUser();
+      });
+      $('#pending_user_tiles').click(function(e){
+        e.preventDefault();
+        pendingUser();
+      });
+      // creating function for pending user 
+      function pendingUser(){
+        $('#showdashboard').hide();
          $('#approved_user_request').hide();
          $('#approved_all_user_request').hide(); 
          $('#pending_user_request').show();
@@ -380,9 +389,7 @@ session_start();
            }
          });
          }
-         loadPendingUserTable();
-         
-       });
+         loadPendingUserTable();      
        $(document).on("change",'#change_isblock',function(){
         var id =  $(this).data("eid");
         var value = $(this).val();
@@ -399,9 +406,9 @@ session_start();
                   }
                 }
             });
-      });
-      //pending user sorting 
-      $('#pending_user_sort').change(function(){
+        });
+       //pending user sorting 
+        $('#pending_user_sort').change(function(){
           var key = $(this).val();
           var action="pending_user_sort";           
               $.ajax ({
@@ -413,10 +420,20 @@ session_start();
                   }
               });
         });
-      // close pending user sort
+      }
+// closing function of pending user
+        // close pending user sort
       $('#approved_user').click(function(e){
-         e.preventDefault();
-         $('#showdashboard').hide();
+        e.preventDefault();
+        approvedUser();
+       });
+       $('#approved_user_tiles').click(function(e){
+        e.preventDefault();
+        approvedUser();
+       });
+//  create function for approved user
+      function approvedUser(){
+        $('#showdashboard').hide();
          $('#pending_user_request').hide();
          $('#approved_all_user_request').hide(); 
          $('#approved_user_request').show();
@@ -446,11 +463,20 @@ session_start();
                   }
               });
         });
-         //closing of user sort 
-       });
-       $('#all_user').click(function(e){
-         e.preventDefault();
-         $('#showdashboard').hide();
+         //closing of user sort
+      }
+//closing of approved user function
+      $('#all_user').click(function(e){
+        e.preventDefault();
+        allUser();
+      });
+      $('#all_user_tiles').click(function(e){
+        e.preventDefault();
+        allUser();
+      });
+// function for all_user 
+function allUser(){
+  $('#showdashboard').hide();
          $('#pending_user_request').hide();
          $('#approved_user_request').hide();
          $('#approved_all_user_request').show(); 
@@ -538,9 +564,8 @@ session_start();
           });
          }
          SortByStatus();
-         });     
-       });
-       //akax for delet the user from whole user 
+         });    
+       //ajax for delet the user from whole user 
        $(document).on("click",'.delete-btn',function(){
         var id =  $(this).data("id");
         var element = this;
@@ -557,24 +582,29 @@ session_start();
                 }
             }); 
           });
+}
+// closing function for all user 
       $('#changepass').click(function(){
         var id = $('#id').val();
         var oldpass = $('#oldpass').val();
         var newpass = $('#newpass').val();
-        var action = 'change_admin_pass';
-        $.ajax({
-          url:'ajaxaction.php',
-          type:'post',
-          data : {id:id, oldpass:oldpass, newpass:newpass, action:action},
-          success : function(data){
-            if(data == 1) {
-              window.location="login.php";
-            } else {
-              alert(data);
+        if(oldpass=='' || newpass =='') {
+          alert('Both Fields are Required');
+        } else {
+          var action = 'change_admin_pass';
+          $.ajax({
+            url:'ajaxaction.php',
+            type:'post',
+            data : {id:id, oldpass:oldpass, newpass:newpass, action:action},
+            success : function(data){
+              if(data == 1) {
+                window.location="login.php";
+              } else {
+                alert(data);
+              }           
             }
-           
-          }
-        });
+          });
+        }      
       });
       });
     </script>

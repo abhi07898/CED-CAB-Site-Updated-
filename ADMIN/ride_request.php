@@ -72,7 +72,7 @@ if (!isset($_SESSION['admin']))
         <h1>RIDE PENDING REQUEST </h1>
 
         <div id="search-bar">
-        <Select id = 'request_ride_sort'class='btn btn-outline-warning mt-2 ml-5 text-center text-dark '>
+        <Select id = 'request_ride_sort'class='btn btn-outline-warning mt-1 ml-5 text-center text-dark '>
         <option>SORT THE TABLE DATA</option>
         <option value="ride_date">DATE</option>
         <option value="total_distance">DISTANCE</option>

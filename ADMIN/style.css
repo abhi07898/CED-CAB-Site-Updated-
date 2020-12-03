@@ -1,6 +1,7 @@
 *{
     margin : 0;
     padding: 0;
+    font-family: emoji;
 }
 #header1 {
     background-color: gray;
@@ -211,13 +212,18 @@
   }
   .signuptable {
       padding: 10px;
-      margin: 50px;
+      margin-top:30px;
+      margin-bottom:90px;
+  }
+  .signuptable-register {
+    margin-left:100px;
   }
   .login-register {
       border: 2px solid gray;
       padding: 10px;
       border-collapse: collapse;
-      font-size: 20px;    
+      font-size: 20px;
+      margin-right:500px;     
   }
   .login-register td{
       padding: 7px;

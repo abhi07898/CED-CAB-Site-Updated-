@@ -70,14 +70,17 @@ if (!isset($_SESSION['admin']))
   <table id="main" border="0" cellspacing="0">
     <tr>
       <td id="header">
-        <div class="row">
-          <div class="col">
+        <!-- <div class="row">
+          <div class="col"> -->
             <h1>LIST OF ALL THE RIDE </h1>
+          <!-- </div> -->
+       
+        <div class="row mt-2">
+          <div class="col">
+
           </div>
-        <div id="search-bar">
-        
-          <div class="col-lg-4">
-              <div class="dropdown">
+          <div class="col-lg-3 ">
+            <div class="dropdown">
               <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 SORT THE DATA BY:
               </button>
@@ -87,7 +90,8 @@ if (!isset($_SESSION['admin']))
                 <a class="dropdown-item" id="distance" href="#">Distance</a>
               </div>
           </div>
-          <div class="col-lg-4">
+      </div>
+          <div class="col-lg-3 mr-5">
               <div class="dropdown">
               <button class="btn btn-warning dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 FILTER BY WEEK|MONTH :
@@ -98,7 +102,9 @@ if (!isset($_SESSION['admin']))
               </div>
           </div>
         </div>
-        </div>
+      </div>
+        <!-- </div> -->
+       
         
         <!-- </div> -->
         

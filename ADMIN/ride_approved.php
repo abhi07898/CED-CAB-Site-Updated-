@@ -73,14 +73,16 @@ if (!isset($_SESSION['admin']))
   <table id="main" border="0" cellspacing="0">
     <tr>
       <td id="header" class='text-center'>
-        <h1 >LIST OF ALL APPROVED RIDE </h1>
-        <Select id = 'approved_sort'class='btn btn-outline-warning mt-2 ml-5 text-center text-dark '>
-        <option>SORT THE TABLE DATA</option>
+        <h1>LIST OF ALL APPROVED RIDE </h1>
+        <div id="search-bar">
+        <Select id = 'approved_sort'class='btn btn-outline-warning mt-1 ml-5 text-center text-dark '>
+        <option value="">SORT THE TABLE DATA</option>
         <option value="ride_date">DATE</option>
         <option value="total_distance">DISTANCE</option>
         <option value="total_fare">FARE</option>
         <option value="cab_type">CAB</option>
       </Select>
+      </div>
       </td>
       
     </tr>
