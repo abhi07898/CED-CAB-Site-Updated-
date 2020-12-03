@@ -598,7 +598,7 @@ function allUser(){
             data : {id:id, oldpass:oldpass, newpass:newpass, action:action},
             success : function(data){
               if(data == 1) {
-                window.location="login.php";
+                window.location="../login.php";
               } else {
                 alert(data);
               }           
