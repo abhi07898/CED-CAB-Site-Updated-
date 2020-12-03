@@ -36,7 +36,9 @@ session_start();
     ?>
 <section>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand " href="admin_home.php">CED CAB</a>
+  <!-- <a class="navbar-brand " href="admin_home.php">CED CAB</a> -->
+  <a class="navbar-brand " href="#" ><span class = "text-warning span-1">Ced</span><span class="span-2"><b>Cab</b></span></a>
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -567,6 +569,7 @@ function allUser(){
          });    
        //ajax for delet the user from whole user 
        $(document).on("click",'.delete-btn',function(){
+         if(confirm("Are you sure to delet"==true)) {
         var id =  $(this).data("id");
         var element = this;
           var action="delete_total_user";           
@@ -581,7 +584,8 @@ function allUser(){
                   }
                 }
             }); 
-          });
+         };
+        });
 }
 // closing function for all user 
       $('#changepass').click(function(){

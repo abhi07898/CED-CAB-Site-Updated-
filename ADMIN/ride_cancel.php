@@ -138,6 +138,7 @@ if (!isset($_SESSION['admin']))
               });
         });
         $(document).on("click",'.delete-btn',function(){
+          if(confirm("Are you sure to delet??")) {
         var id =  $(this).data("id");
         var element = this;
           var action="delete_total_ride";           
@@ -152,7 +153,7 @@ if (!isset($_SESSION['admin']))
                   }
                 }
             });
-       
+        };
       });
  });
    

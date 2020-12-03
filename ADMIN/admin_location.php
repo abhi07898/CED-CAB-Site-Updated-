@@ -155,6 +155,7 @@ if (!isset($_SESSION['admin']))
       }); 
       //delete records 
       $(document).on("click",'.delete-btn', function(){
+        if(confirm("Are You sure to delete")==true) {
         var delet_id = $(this).data("id");
         var element = this;
         var action='delete';
@@ -171,7 +172,7 @@ if (!isset($_SESSION['admin']))
               }
           }
         });
-      
+        };
       });
 
       //edit records

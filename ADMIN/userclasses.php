@@ -323,6 +323,13 @@ class userclasses {
       
             </tr>';
             while ($row = $result->fetch_assoc()){
+                if($row['status']==1) {
+                    $status = "PENDING";
+                } else if($row['status']==2) {
+                    $status = "APPROVED";
+                } else if($row['status']==3) {
+                    $status="CANCEL";
+                }
                 $output.= "<tr align='center' height='40px'>
                 <td align='center'>{$row['ride_id']}</td>
                 <td>{$row['cust_id']}</td>
@@ -331,7 +338,8 @@ class userclasses {
                 <td>{$row['loc_to']}</td>
                 <td>{$row['total_distance']}</td>
                 <td>{$row['luggage']}</td>
-                <td>{$row['status']}</td>
+                
+                <td>{$status}</td>
                 <td>{$row['total_fare']}</td>
                 <td>{$row['cab_type']}</td>
                 <td><button Class='delete-btn' data-id='{$row["ride_id"]}'>DELETE</button></td>

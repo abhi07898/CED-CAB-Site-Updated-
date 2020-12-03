@@ -481,6 +481,7 @@ include 'rideclasses.php';
             });
             //cancel pending ride
             $(document).on('click','.cancel-btn', function(){
+              if(confirm("Are you sure to cancel ?")) {
               var id = $(this).data('cid');
               var action ='cancel_ride';
               var element = this;
@@ -496,6 +497,7 @@ include 'rideclasses.php';
                   }
                 }
               });
+              };
             });
             //close cancel pending ride
             // Search The Pending Rides
