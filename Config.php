@@ -20,7 +20,7 @@ class Config {
         $this->srever_name = "localhost" ;
         $this->user_name = "root" ;
         $this->password = "";
-        $this->dbname = "cabbooking";
+        $this->dbname = "cabbooking";      
     }
     public function Connect() {
         $this->conn = new mysqli($this->srever_name, $this->user_name, $this->password, $this->dbname);

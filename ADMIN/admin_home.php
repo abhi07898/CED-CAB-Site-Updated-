@@ -1,6 +1,10 @@
 <?php
 session_start();
-
+if(isset($_SESSION['LAST_ACTIVITY'])&&(time() - $_SESSION['LAST_ACTIVITY']>1*60*3)) {
+  session_unset();
+  session_destroy();
+}
+$_SESSION['LAST_ACTIVITY'] = time();
 ?>
 <!DOCTYPE html>
 <html lang="en">

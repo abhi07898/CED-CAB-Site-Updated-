@@ -1,14 +1,11 @@
 <?php
 include 'login_valid.php';
 //session expire 
-$expireAfter = 3; //expire after 3 minutes
-if(isset($_SESSION['last_action'])){
-    $secondsInactive = time() - $_SESSION['last_action'];
-    $expireAfterSeconds = $expireAfter * 60;
-    if($secondsInactive >= $expireAfterSeconds){
-        session_unset();
-        session_destroy();
-    }    
+// flag variable concept fpor unset the session
+if(isset($_GET['flag'])){
+    if(isset($_SESSION['cart'])) {
+       unset($_SESSION['cart']);
+    }
 }
 //cloe session expire
 ?>

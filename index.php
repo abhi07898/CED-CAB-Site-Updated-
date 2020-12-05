@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 // include 'userclasses.php';
 include 'locationclass.php';
@@ -31,26 +30,25 @@ include 'locationclass.php';
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link " href="#">Welcome to the world best Cab  SERVICE with <b>Senetize and proper Secure</b><span class="sr-only">(current)</span></a>
+                            <a class="nav-link text-uppercase font-weight-bold" href="#">Welcome to the world best Cab  SERVICE<span class="sr-only">(current)</span></a>
                         </li> 
                         <?php 
-                        if(isset($_SESSION['user'])){
-                            $option = $_SESSION['user']['name'];
-                            echo '<a href="user_dashboard.php" class="btn btn-outline-danger">Hello Mr .'.$option.'</a>';
-
+                        if(isset($_SESSION['user'])){                          
+                            echo '<a href="user_dashboard.php?flag=1" class="btn btn-outline-danger">DASHBOARD</a>';
                         } else {
                             echo '<li class="nav-item active">
-                                        <a class="btn btn-outline-danger" href="login.php" role="button">LOGIN</a>
-                                  </li> ';
+                                        <a class="btn btn-outline-danger" href="login.php?flag=1" role="button">LOGIN</a>
+                                  </li>';
+                                  //send the flag variable to unset and destroy the session
+                                
                         }
-                            ?>
-                        
-                        </ul>                    
+                            ?>                        
+                      </ul>                    
                     </div>
                 </nav>
             </header>
         <div class="mini-head-content container-fluid">
-            choose from a range of categories and Prices
+            Choose From a Range Of Categories And Prices
         </div>
         <div class="row">
             <div class="col-lg-4 col-xl-4 col-md-6 col-sm-12 col-xs-12">
@@ -74,8 +72,7 @@ include 'locationclass.php';
                                 </select> 
                             </td>                                  
                             </tr>                              
-                            <tr>
-                               
+                            <tr>                             
                                 <td class="td-design"><span>DROP</span></td>
                                 <td>
                                 <?php $obj = new locationclass();
@@ -85,8 +82,7 @@ include 'locationclass.php';
                                     </select>
                                 </td>                                  
                             </tr>
-                            <tr>
-                               
+                            <tr>                               
                                 <td class="td-design"><span>CAB TYPE</span></td>
                                 <td><select id="cab" name="cab" class="form-control">
                                         <option value="">CAB TYPE</option>
@@ -121,20 +117,18 @@ include 'locationclass.php';
                     <div class="form-table">
                         <table class="table output-table">
                             <tr>
-                            <th>Reason</th>
-                            <th>Amount</th>
-                            </tr>
-                            
+                                <th>Reason</th>
+                                <th>Amount</th>
+                            </tr>                            
                             <tbody id="result">
-                            <?php
+                                <?php
                                 // if(isset($_SESSION['cart'])) {
                                     echo  '<tr><td>cab-service</td><td >'. $_SESSION['cart']['cabdata']. '</td></tr>';
                                     echo  '<tr><td>Total-Distance</td><td >'. $_SESSION['cart']['calculated_distance'] . '.km </td></tr>';
                                     echo  '<tr><td>Fare-Amout</td><td >'. $_SESSION['cart']['fare'] .'.Rs </td></tr>';
                                     echo '<tr><td>Fare for Luggage</td><td >'. $_SESSION['cart']['luggage_amount']. '. Rs </td></tr>';
                                     echo '<tr><td>Total-Fare(fare+luggage) </td><td >'.$_SESSION['cart']['ftotal_amount'] . '. Rs </td></tr>';
-                                // } 
-                                                         
+                                // }                                                         
                                 ?>
                             </tbody>
                             <tr>
@@ -175,6 +169,7 @@ include 'locationclass.php';
 <!-- performing ajax  -->
     <script>
         $(document).ready(function(){ 
+         
             $('#cab').change(function(){              
                 if( $('#cab').val()=='CedMicro') {
                     $('#luggage').prop('disabled', true);
@@ -183,7 +178,7 @@ include 'locationclass.php';
                     $('#luggage').prop('disabled', false);
                 }
             });
-            
+           
             // $('#result-col').hide();
             $('#luggage').keyup(function () { 
                 this.value = this.value.replace(/[^0-9\.]/g,'');
@@ -195,12 +190,11 @@ include 'locationclass.php';
               var cab = $('#cab').val();
               var number = $('#luggage').val();
               if(pickup =="" || destination =="" || cab == "") {
-                  alert("Please select atleast pickup , destination and cab option")
+                  alert("Please select atleast pickup , destination and cab option");
               } 
               else if(pickup == destination){
                   alert('you can"t eneter destination same as pickup');
               } else {
-                //   alert(number);
                 $.ajax({
                     url : "calculate-updated.php",
                     type : "POST",
@@ -209,12 +203,10 @@ include 'locationclass.php';
                         window.location.href='index.php';
                     }
                    });
-                //    $('#result-col').show().fadeIn(200);
               }                                                  
-            }); 
-            
+            });             
             $('#book_now').click(function(){
-            })
+            });
          });
     </script>   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>

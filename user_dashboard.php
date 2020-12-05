@@ -2,6 +2,17 @@
 // session_start();
 // include 'locationclass.php';
 include 'rideclasses.php';
+// distroy after a specififc timwe 
+if(isset($_SESSION['LAST_ACTIVITY'])&&(time() - $_SESSION['LAST_ACTIVITY']>1*60*3)) {
+  session_unset();
+  session_destroy();
+}
+$_SESSION['LAST_ACTIVITY'] = time();
+//close session automatic expiration
+if(isset($_GET['flag'])){ 
+      unset($_SESSION['cart']);
+}
+
 ?> 
 <!doctype html>
 <html lang="en">
